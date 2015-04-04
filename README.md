@@ -8,7 +8,7 @@ This package allows R users to easily create a hierarchical edge bundle plot.  T
 You can install `edgebundleR` from Github using the `devtools` package as follows:
 
 ```s
-devtools::install_github("garthtarr/pairsD3")
+devtools::install_github("garthtarr/edgebundleR")
 ```
 
 Once package development has stabilised, we will upload it to CRAN.
