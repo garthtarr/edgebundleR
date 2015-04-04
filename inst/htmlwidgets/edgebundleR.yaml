@@ -1,0 +1,9 @@
+dependencies:
+  - name: edgebundleR
+    version: 0.0.2
+    src: htmlwidgets/lib/edgebundleR
+    script:
+      - d3.v3.min.js
+      - packages.js
+    stylesheet:
+      - styles.css

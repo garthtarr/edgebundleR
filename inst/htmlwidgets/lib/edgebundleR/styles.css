@@ -1,0 +1,29 @@
+<style>
+.body{
+}
+.node:hover {
+  fill: steelblue;
+  font-family:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 800;
+}
+.link {
+  stroke: steelblue;
+  stroke-opacity: .4;
+  fill: none;
+  pointer-events: none;
+}
+path.arc {
+  cursor: move;
+  fill: #fff;
+}
+.link.source, .link.target {
+  stroke-opacity: 1;
+  stroke-width: 2px;
+  stroke: #d62728;
+}
+.node.target, .node.source  {
+  fill: #d62728 ;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 800;
+}
+</style>

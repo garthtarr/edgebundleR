@@ -1,0 +1,75 @@
+#' Circle plot with bundled edges
+#'
+#' Takes an appropriately structured JSON file or a square symmetric matrix (e.g. a
+#' correlation matrix or precision matrix) and outputs a circle plot with the nodes
+#' around the circumfrence and linkages between the connected nodes. Adapted from
+#' the  Mike Bostock's D3 Hierarchical Edge Bundling example using the htmlwidgets
+#' framework.
+#'
+#' @param x an appropriately structured JSON file (see vignette for details) or a
+#'   square symmetric matrix (e.g. correlation matrix) or an igraph object.
+#' @param tension numeric between 0 and 1 giving the tension of the links
+#' @param cutoff numeric giving the threshold dependence for linkages to be plotted
+#' @param width the width of the plot when viewed externally
+#' @param height the height of the plot when viewed externally
+#'
+#'
+#' @import htmlwidgets
+#' @import rjson
+#'
+#' @examples
+#' \dontrun{
+#' require(igraph)
+#' ws_graph = watts.strogatz.game(1, 50, 4, 0.05)
+#' edgebundle(ws_graph,tension = 0.1,fontsize = 20)
+#' }
+#'
+#' @export
+edgebundle <- function(x, tension=0.5, cutoff=0.1, width = NULL, height = NULL, fontsize = 14) {
+  if((typeof(x)=="character")){
+    json_data <- rjson::fromJSON(file = x)
+    json_real = rjson::toJSON(json_data)
+  } else if (class(x)=="igraph"){
+    adj = as.matrix(get.adjacency(x, names=TRUE))
+    edges = adjToEdge(adj)
+    json_real = edgeToJSON(edges)
+  } else {
+  if(!isSymmetric(x)){
+    warning("x needs to be a symmetric matrix (e.g. a correlation matrix).")
+    return()
+  }
+  corX = x
+  adj = corX>cutoff
+  edges = adjToEdge(adj)
+  json_real = edgeToJSON(edges)
+  }
+  # forward options using x
+  xin = list(
+    json_real = json_real,
+    tension = tension,
+    fontsize = fontsize
+  )
+  # create widget
+  htmlwidgets::createWidget(
+    name = 'edgebundleR',
+    xin,
+    width = width,
+    height = height,
+    package = 'edgebundleR'
+  )
+}
+
+#' Widget output function for use in Shiny
+#'
+#' @export
+edgebundleOutput <- function(outputId, width = '100%', height = '400px'){
+  shinyWidgetOutput(outputId, 'edgebundleR', width, height, package = 'edgebundleR')
+}
+
+#' Widget render function for use in Shiny
+#'
+#' @export
+renderEdgebundle <- function(expr, env = parent.frame(), quoted = FALSE) {
+  if (!quoted) { expr <- substitute(expr) } # force quoted
+  shinyRenderWidget(expr, edgebundleOutput, env, quoted = TRUE)
+}

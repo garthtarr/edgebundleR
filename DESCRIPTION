@@ -1,0 +1,28 @@
+Package: edgebundleR
+Type: Package
+Title: Circle plot with bundled edges
+Version: 0.0.3
+Date: 2015-04-02
+Authors@R: c(person("Garth", "Tarr", email = "garth.tarr@gmail.com", role = c("aut", "cre")),
+              person("Ellis", "Patrick", email = "ellis.patrick@sydney.edu.au", role = "aut"))
+Description: Takes an appropriately structured JSON file or a square symmetric matrix (e.g. a
+              correlation matrix or precision matrix) and outputs a circle plot with the nodes
+              around the circumfrence and linkages between the connected nodes. Adapted from
+              the  Mike Bostock's D3 Hierarchical Edge Bundling example using the htmlwidgets
+              framework.
+License: GPL (>= 2)
+LazyData: TRUE
+Depends:
+    R (>= 3.1.2),
+    shiny
+Imports:
+    htmlwidgets,
+    rjson,
+    igraph
+Suggests:
+    knitr,
+    htmltools (>= 0.2.6),
+    huge
+URL: https://github.com/garthtarr/edgebundleR
+VignetteBuilder: knitr
+Roxygen: list(wrap = FALSE)
