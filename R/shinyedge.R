@@ -2,15 +2,6 @@
 #'
 #' Opens a shiny GUI to facilitate interaction with the edgebundle function
 #'
-#'
-#' Circle plot with bundled edges
-#'
-#' Takes an appropriately structured JSON file or a square symmetric matrix (e.g. a
-#' correlation matrix or precision matrix) and outputs a circle plot with the nodes
-#' around the circumfrence and linkages between the connected nodes. Adapted from
-#' the  Mike Bostock's D3 Hierarchical Edge Bundling example using the htmlwidgets
-#' framework.
-#'
 #' @param x an appropriately structured JSON file (see vignette for details) or a
 #'   square symmetric matrix (e.g. correlation matrix) or an igraph object.
 #'
@@ -24,8 +15,6 @@ shinyedge = function(x){
   } else {
     type='symmat'
   }
-
-  cat(type)
 
   shinyApp(
     ui=fluidPage(
@@ -62,7 +51,7 @@ shinyedge = function(x){
       output$circplot <- renderUI({
         edgebundleOutput("eb",width = input$width,height=input$width)
       })
-
+      
       output$type=reactive({type})
       outputOptions(output, 'type', suspendWhenHidden=FALSE)
 
@@ -72,11 +61,7 @@ shinyedge = function(x){
           sliderInput("cutoff","Cutoff",0.2,min=0,max=1)
         )
       })
-
-
-
-
-
+      
       output$export = downloadHandler(
         filename = "edgebundle.html",
         content = function(file){

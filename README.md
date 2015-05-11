@@ -46,7 +46,7 @@ In this document, the fontsize is ignored in the above plot as the css code that
 
 ```s
 require(MASS)
-sig = kronecker(diag(3),matrix(2,5,5)) +3*diag(15)
+sig = kronecker(diag(3),matrix(2,5,5)) + 3*diag(15)
 X = MASS::mvrnorm(n=100,mu=rep(0,15),Sigma = sig)
 colnames(X) = paste(rep(c("A.A","B.B","C.C"),each=5),1:5,sep="")
 edgebundle(cor(X),cutoff=0.2,tension=0.8,fontsize = 14)
