@@ -11,11 +11,14 @@
 #' @param tension numeric between 0 and 1 giving the tension of the links
 #' @param cutoff numeric giving the threshold dependence for linkages to be plotted
 #' @param width the width of the plot when viewed externally
-#' @param height the height of the plot when viewed externally
-#'
+#' @param fontsize font size of the node labels
+#' @param padding the padding (in px) between the inner radius of links and the
+#'   edge of the plot.  Increase this when the labels run outside the edges of
+#'   the plot.  Default: 100.
 #'
 #' @import htmlwidgets
 #' @import rjson
+#' @import igraph
 #'
 #' @examples
 #' \dontrun{
@@ -25,12 +28,13 @@
 #' }
 #'
 #' @export
-edgebundle <- function(x, tension=0.5, cutoff=0.1, width = NULL, height = NULL, fontsize = 14) {
+edgebundle <- function(x, tension=0.5, cutoff=0.1, width = NULL,
+                       fontsize = 14, padding=100) {
   if((typeof(x)=="character")){
     json_data <- rjson::fromJSON(file = x)
     json_real = rjson::toJSON(json_data)
   } else if (class(x)=="igraph"){
-    adj = as.matrix(get.adjacency(x, names=TRUE))
+    adj = as.matrix(igraph::get.adjacency(x, names=TRUE))
     edges = adjToEdge(adj)
     json_real = edgeToJSON(edges)
   } else {
@@ -43,9 +47,13 @@ edgebundle <- function(x, tension=0.5, cutoff=0.1, width = NULL, height = NULL, 
   edges = adjToEdge(adj)
   json_real = edgeToJSON(edges)
   }
+  height=width
   # forward options using x
   xin = list(
     json_real = json_real,
+    width=width,
+    height=height,
+    padding=padding,
     tension = tension,
     fontsize = fontsize
   )
@@ -55,11 +63,16 @@ edgebundle <- function(x, tension=0.5, cutoff=0.1, width = NULL, height = NULL, 
     xin,
     width = width,
     height = height,
+    #htmlwidgets::sizingPolicy(padding = 0, browser.fill = TRUE),
     package = 'edgebundleR'
   )
 }
 
 #' Widget output function for use in Shiny
+#'
+#' @param outputId Shiny output ID
+#' @param width width default '100\%'
+#' @param height height default '400px'
 #'
 #' @export
 edgebundleOutput <- function(outputId, width = '100%', height = '400px'){
@@ -67,6 +80,10 @@ edgebundleOutput <- function(outputId, width = '100%', height = '400px'){
 }
 
 #' Widget render function for use in Shiny
+#'
+#' @param expr edgebundle expression
+#' @param env environment
+#' @param quoted logical, default = FALSE
 #'
 #' @export
 renderEdgebundle <- function(expr, env = parent.frame(), quoted = FALSE) {

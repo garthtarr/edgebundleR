@@ -5,6 +5,8 @@
 #' @param x an appropriately structured JSON file (see vignette for details) or a
 #'   square symmetric matrix (e.g. correlation matrix) or an igraph object.
 #'
+#' @import shiny
+#'
 #' @export
 shinyedge = function(x){
 
@@ -25,6 +27,7 @@ shinyedge = function(x){
                  sliderInput("tension", "Tension", 0.3,min=0,max=1,step = 0.01),
                  sliderInput("fontsize","Font size",12,min=6,max=24),
                  sliderInput("width","Width and height",600,min=200,max=1200),
+                 sliderInput("padding","Padding",100,min=0,max=300),
                  uiOutput("cutoffui")
 
                ),
@@ -49,9 +52,9 @@ shinyedge = function(x){
     shinyServer(function(input, output) {
 
       output$circplot <- renderUI({
-        edgebundleOutput("eb",width = input$width,height=input$width)
+        edgebundleOutput("eb", width = input$width, height=input$width)
       })
-      
+
       output$type=reactive({type})
       outputOptions(output, 'type', suspendWhenHidden=FALSE)
 
@@ -61,23 +64,23 @@ shinyedge = function(x){
           sliderInput("cutoff","Cutoff",0.2,min=0,max=1)
         )
       })
-      
+
       output$export = downloadHandler(
         filename = "edgebundle.html",
         content = function(file){
           saveEdgebundle(edgebundle(x,tension=input$tension,
                                     cutoff=input$cutoff,
                                     fontsize = input$fontsize,
-                                    width=input$width,
-                                    height=input$width),
+                                    width=input$width),
                          file=file)
         }
       )
 
       output$eb <- renderEdgebundle({
         edgebundle(x,tension=input$tension,cutoff=input$cutoff,
-                   fontsize=input$fontsize)
+                   fontsize=input$fontsize,padding=input$padding)
       })
 
     })
-  )}
+  )
+}

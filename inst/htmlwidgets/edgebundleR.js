@@ -17,11 +17,9 @@ HTMLWidgets.widget({
       el.removeChild(el.firstChild);
 
 
-//myHtmlElement.style.backgroundColor='green';
-    //var w = 1280,
-    //h = 800,
-    var w = width,
-    h = height,
+    var size = d3.min([width,height]);
+    var w = size,
+    h = size,
     rx = w / 2,
     ry = h / 2,
     m0,
@@ -30,7 +28,7 @@ HTMLWidgets.widget({
     var splines = [];
 
     var cluster = d3.layout.cluster()
-                  .size([360, ry - 120])
+                  .size([360, ry-xin.padding])
                   .sort(function(a, b) { return d3.ascending(a.key, b.key); });
 
     var bundle = d3.layout.bundle();
@@ -54,20 +52,21 @@ HTMLWidgets.widget({
                 .style("-webkit-backface-visibility", "hidden");
 
     var svg = div.append("svg:svg")
-                .attr("width", w)
-                .attr("height", w)
+                .attr("width", w + "px")
+                .attr("height", w + "px")
                 .append("svg:g")
+                .attr("id","actualplot")
                 .attr("transform", "translate(" + rx + "," + ry + ")");
 
     svg.append("svg:path")
       .attr("class", "arc")
-      .attr("d", d3.svg.arc().outerRadius(ry - 120).innerRadius(0).startAngle(0).endAngle(2 * Math.PI))
+      .attr("d", d3.svg.arc().outerRadius(ry - 120).innerRadius(0).padRadius(0).startAngle(0).endAngle(2 * Math.PI))
       .on("mousedown", mousedown);
 
-    classes = JSON.parse(xin.json_real)
-    nodes = cluster.nodes(packages.root(classes))
-    links = packages.imports(nodes)
-    splines = bundle(links)
+    classes = JSON.parse(xin.json_real);
+    nodes = cluster.nodes(packages.root(classes));
+    links = packages.imports(nodes);
+    splines = bundle(links);
 
     var path = svg.selectAll("path.link")
                 .data(links)
@@ -172,9 +171,9 @@ HTMLWidgets.widget({
 
     var css = document.createElement("style");
     css.type = "text/css";
-    var pre = ".node { font: 300 "
-    var post = "px 'Helvetica Neue', Helvetica, Arial, sans-serif;}"
-    css.innerHTML = pre + xin.fontsize + post
+    var pre = ".node { font: 300 ";
+    var post = "px 'Helvetica Neue', Helvetica, Arial, sans-serif;}";
+    css.innerHTML = pre + xin.fontsize + post;
     document.head.appendChild(css);
 
 

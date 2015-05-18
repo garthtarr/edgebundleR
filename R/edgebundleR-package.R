@@ -1,5 +1,7 @@
 #' Helper function to convert edges to JSON
 #'
+#' @param edges a matrix of edge relationships
+#'
 edgeToJSON = function(edges){
   output = list()
   for(i in unique(as.vector(edges))){
@@ -14,12 +16,17 @@ edgeToJSON = function(edges){
 
 #' Helper function to convert adjacency matrix to edges
 #'
+#' @param adj an adjacency matrix
+#'
 adjToEdge = function(adj){
   adj = (adj+t(adj)>0)*1
   diag(adj) = 1
   diag(adj)[rowSums(adj)>1]=0
   if(is.null(colnames(adj))){
-    colnames(adj) = rownames(adj) = paste("V",1:dim(adj)[1],sep="")
+    posts = 1:dim(adj)[1]
+    arg1 = paste("%0",nchar(max(posts)),"s",sep="")
+    posts = sprintf(arg1,posts)
+    colnames(adj) = rownames(adj) = paste("V",posts,sep="")
   }
   edges = which(adj>0,2)
   edges = edges[edges[,2]>=edges[,1],]

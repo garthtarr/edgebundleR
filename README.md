@@ -37,7 +37,7 @@ Given an igraph object as the input, the function will extract the linkages and 
 ```s
 require(igraph)
 ws_graph <- watts.strogatz.game(1, 50, 4, 0.05)
-edgebundle(ws_graph,tension = 0.1,fontsize = 20,width=600,height=600)
+edgebundle(ws_graph,tension = 0.1,fontsize = 20,width=600)
 ```
 
 In this document, the fontsize is ignored in the above plot as the css code that informs the rendering is taken from the final plot on the webpage.
