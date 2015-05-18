@@ -79,7 +79,7 @@ If you already have an appropriately formatted JSON file with `name` and `import
 
 ```s
 filepath = system.file("sampleData", "flare-imports.json", package = "edgebundleR")
-edgebundle(filepath,width=800,height=800,fontsize=8,tension=0.95)
+edgebundle(filepath,width=800,fontsize=8,tension=0.95)
 ```
 
 In this example, the first few lines of the file are:
