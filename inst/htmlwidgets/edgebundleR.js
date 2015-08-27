@@ -110,7 +110,7 @@ HTMLWidgets.widget({
     	.attr("opacity", 1.0)
     	.attr("r", function(d,i){
     	  var size = (d.size) ? d.size : 10;
-    	  return Math.round(Math.pow(size, 1/3));
+    	  return Math.round(Math.pow(size, 1/2));
     	});
 
     d3.select(el)
