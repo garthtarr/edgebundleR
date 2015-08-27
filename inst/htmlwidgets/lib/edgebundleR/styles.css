@@ -1,24 +1,24 @@
-.edgeBundleR .node:hover {
+.edgebundleR .node:hover {
   fill: steelblue;
   font-family:  "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 800;
 }
-.edgeBundleR .link {
+.edgebundleR .link {
   stroke: steelblue;
   stroke-opacity: .4;
   fill: none;
   pointer-events: none;
 }
-.edgeBundleR path.arc {
+.edgebundleR path.arc {
   cursor: move;
   fill: #fff;
 }
-.edgeBundleR .link.source, .edgeBundleR .link.target {
+.edgebundleR .link.source, .edgebundleR .link.target {
   stroke-opacity: 1;
   stroke-width: 2px;
   stroke: #d62728;
 }
-.edgeBundleR .node.target, .edgeBundleR .node.source  {
+.edgebundleR .node.target, .edgebundleR .node.source  {
   fill: #d62728 ;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 800;
