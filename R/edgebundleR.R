@@ -15,6 +15,7 @@
 #' @param padding the padding (in px) between the inner radius of links and the
 #'   edge of the plot.  Increase this when the labels run outside the edges of
 #'   the plot.  Default: 100.
+#' @param maxsize size of the largest vertex dot
 #'
 #' @import htmlwidgets
 #' @import rjson
