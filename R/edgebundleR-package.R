@@ -23,13 +23,14 @@ edgeToJSON_igraph = function(graph){
   df <- get.data.frame(graph,what="both")
   vertices <- df$vertices
   edges <- df$edges
-
+  # if the vertex names are unspecified, number them
+  if(is.null(df$vertices$name)){
+    vertices$name = as.character(sort(unique(unlist(edges))))
+  }
   imports <- NULL
   # get all attributes if defined in vertices of the igraph
   output <- apply(
-    vertices
-    ,MARGIN=1
-    ,function(vtx){
+    vertices,MARGIN=1,function(vtx){
       name <- vtx[["name"]]
       if(any(edges[,1]==name)) imports = as.vector(edges[edges[,1]==name,2])
       c(vtx,imports=list(imports))
