@@ -20,8 +20,10 @@ square symmetric matrix (e.g. correlation matrix) or an igraph object.}
 \item{fontsize}{font size of the node labels}
 
 \item{padding}{the padding (in px) between the inner radius of links and the
-  edge of the plot.  Increase this when the labels run outside the edges of
-  the plot.  Default: 100.}
+edge of the plot.  Increase this when the labels run outside the edges of
+the plot.  Default: 100.}
+
+\item{maxsize}{size of the largest vertex dot.}
 }
 \description{
 Takes an appropriately structured JSON file or a square symmetric matrix (e.g. a
