@@ -2,7 +2,7 @@
 #'
 #' @param edges a matrix of edge relationships
 #'
-edgeToJSON = function(edges){
+edgeToJSON_matrix = function(edges){
   output = list()
   for(i in unique(as.vector(edges))){
     name = i
