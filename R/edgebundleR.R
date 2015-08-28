@@ -29,7 +29,7 @@
 #'
 #' @export
 edgebundle <- function(x, tension=0.5, cutoff=0.1, width = NULL,
-                       fontsize = 14, padding=100) {
+                       fontsize = 14, padding=100, maxsize = 10) {
   if((typeof(x)=="character")){
     json_data <- rjson::fromJSON(file = x)
     json_real = rjson::toJSON(json_data)
@@ -53,7 +53,8 @@ edgebundle <- function(x, tension=0.5, cutoff=0.1, width = NULL,
     height=height,
     padding=padding,
     tension = tension,
-    fontsize = fontsize
+    fontsize = fontsize,
+    maxsize = maxsize
   )
   # create widget
   htmlwidgets::createWidget(
