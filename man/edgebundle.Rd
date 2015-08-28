@@ -5,7 +5,7 @@
 \title{Circle plot with bundled edges}
 \usage{
 edgebundle(x, tension = 0.5, cutoff = 0.1, width = NULL, fontsize = 14,
-  padding = 100)
+  padding = 100, maxsize = 10)
 }
 \arguments{
 \item{x}{an appropriately structured JSON file (see vignette for details) or a
