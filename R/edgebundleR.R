@@ -34,18 +34,16 @@ edgebundle <- function(x, tension=0.5, cutoff=0.1, width = NULL,
     json_data <- rjson::fromJSON(file = x)
     json_real = rjson::toJSON(json_data)
   } else if (class(x)=="igraph"){
-    adj = as.matrix(igraph::get.adjacency(x, names=TRUE))
-    edges = adjToEdge(adj)
-    json_real = edgeToJSON(edges)
+    json_real = edgeToJSON_igraph(x)
   } else {
-  if(!isSymmetric(x)){
-    warning("x needs to be a symmetric matrix (e.g. a correlation matrix).")
-    return()
-  }
-  corX = x
-  adj = corX>cutoff
-  edges = adjToEdge(adj)
-  json_real = edgeToJSON(edges)
+    if(!isSymmetric(x)){
+      warning("x needs to be a symmetric matrix (e.g. a correlation matrix).")
+      return()
+    }
+    corX = x
+    adj = corX>cutoff
+    edges = adjToEdge(adj)
+    json_real = edgeToJSON_matrix(edges)
   }
   height=width
   # forward options using x

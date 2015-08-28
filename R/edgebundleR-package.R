@@ -7,10 +7,35 @@ edgeToJSON = function(edges){
   for(i in unique(as.vector(edges))){
     name = i
     imports = NULL
-    if(any(edges[,1]==i))imports = as.vector(edges[edges[,1]==i,2])
+    if(any(edges[,1]==i)) imports = as.vector(edges[edges[,1]==i,2])
     output[[i]] = list(name = name,imports = imports)
   }
   names(output) = NULL
+  rjson::toJSON(output)
+}
+
+
+#' Helper function to convert an igraph to JSON
+#'
+#' @param graph an igraph
+#'
+edgeToJSON_igraph = function(graph){
+  df <- get.data.frame(graph,what="both")
+  vertices <- df$vertices
+  edges <- df$edges
+
+  imports <- NULL
+  # get all attributes if defined in vertices of the igraph
+  output <- apply(
+    vertices
+    ,MARGIN=1
+    ,function(vtx){
+      name <- vtx[["name"]]
+      if(any(edges[,1]==name)) imports = as.vector(edges[edges[,1]==name,2])
+      c(vtx,imports=list(imports))
+    }
+  )
+  output <- unname(output)
   rjson::toJSON(output)
 }
 

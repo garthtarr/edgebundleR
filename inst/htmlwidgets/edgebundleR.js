@@ -49,16 +49,16 @@ HTMLWidgets.widget({
                 .style("margin-right", "auto")
                 .style("left", "0")
                 .style("right", "0")
-                .style("-webkit-backface-visibility", "hidden");
+                .style("backface-visibility", "hidden");
 
-    var svg = div.append("svg:svg")
+    var svg = div.append("svg")
                 .attr("width", w + "px")
                 .attr("height", w + "px")
-                .append("svg:g")
+                .append("g")
                 .attr("id","actualplot")
                 .attr("transform", "translate(" + rx + "," + ry + ")");
 
-    svg.append("svg:path")
+    svg.append("path")
       .attr("class", "arc")
       .attr("d", d3.svg.arc().outerRadius(ry - 120).innerRadius(0).padRadius(0).startAngle(0).endAngle(2 * Math.PI))
       .on("mousedown", mousedown);
@@ -70,28 +70,50 @@ HTMLWidgets.widget({
 
     var path = svg.selectAll("path.link")
                 .data(links)
-                .enter().append("svg:path")
+                .enter().append("path")
                 .attr("class", function(d) {
                   return "link source-" + d.source.key + " target-" + d.target.key;
                 })
-                .attr("d", function(d, i) { return line(splines[i]); });
+                .attr("d", function(d, i) { return line(splines[i]); })
+                .style("stroke", function(d){
+                  if(d.source.color) return d.source.color;
+                  return null;
+                });
 
-    svg.selectAll("g.node")
+    var nodes_g = svg.selectAll("g.node")
       .data(nodes.filter(function(n) { return !n.children; }))
-      .enter().append("svg:g")
-      .attr("class", "node")
-      .attr("id", function(d) { return "node-" + d.key; })
-      .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
-      .append("svg:text")
+      .enter().append("g")
+        .attr("class", "node")
+        .attr("id", function(d) { return "node-" + d.key; })
+        .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
+
+    nodes_g.append("text")
       .attr("dx", function(d) { return d.x < 180 ? 8 : -8; })
       .attr("dy", ".31em")
       .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
       .attr("transform", function(d) { return d.x < 180 ? null : "rotate(180)"; })
+      .style("fill", function(d){
+        if(d.color) return d.color;
+        return null;
+      })
       .text(function(d) { return d.key; })
       .on("mouseover", mouseover)
       .on("mouseout", mouseout);
 
-    d3.select(window)
+    nodes_g.append("circle")
+    	.attr("cx", 0)
+    	.attr("cy", 0)
+    	.attr("fill", function(d,i){
+        if(d.color) return d.color;
+        return null;
+    	})
+    	.attr("opacity", 1.0)
+    	.attr("r", function(d,i){
+    	  var size = (d.size) ? d.size : 10;
+    	  return Math.round(Math.pow(size, 1/2));
+    	});
+
+    d3.select(el)
       .on("mousemove", mousemove)
       .on("mouseup", mouseup);
 
@@ -108,7 +130,7 @@ HTMLWidgets.widget({
       if (m0) {
         var m1 = mouse(d3.event),
         dm = Math.atan2(cross(m0, m1), dot(m0, m1)) * 180 / Math.PI;
-        div.style("-webkit-transform", "translateY(" + (ry - rx) + "px)rotateZ(" + dm + "deg)translateY(" + (rx - ry) + "px)");
+        div.style("transform", "translateY(" + (ry - rx) + "px)rotateZ(" + dm + "deg)translateY(" + (rx - ry) + "px)");
       }
     }
 
@@ -120,7 +142,7 @@ HTMLWidgets.widget({
         if (rotate > 360) rotate -= 360;
         else if (rotate < 0) rotate += 360;
         m0 = null;
-        div.style("-webkit-transform", null);
+        div.style("transform", null);
         svg
           .attr("transform", "translate(" + rx + "," + ry + ")rotate(" + rotate + ")")
           .selectAll("g.node text")
