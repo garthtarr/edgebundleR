@@ -15,7 +15,10 @@
 #' @param padding the padding (in px) between the inner radius of links and the
 #'   edge of the plot.  Increase this when the labels run outside the edges of
 #'   the plot.  Default: 100.
-#' @param maxsize size of the largest vertex dot.
+#' @param nodesize two element vector of the min and max node size
+#'   to scale the node circle size.  If a size is not provided for each
+#'   node, then the node size will be the max node size provided in
+#'   this argument.  Default: c(5,20).
 #'
 #' @import htmlwidgets
 #' @import rjson
@@ -30,7 +33,7 @@
 #'
 #' @export
 edgebundle <- function(x, tension=0.5, cutoff=0.1, width = NULL,
-                       fontsize = 14, padding=100, maxsize = 10) {
+                       fontsize = 14, padding=100, nodesize = c(5,20)) {
   if((typeof(x)=="character")){
     json_data <- rjson::fromJSON(file = x)
     json_real = rjson::toJSON(json_data)
@@ -55,7 +58,7 @@ edgebundle <- function(x, tension=0.5, cutoff=0.1, width = NULL,
     padding=padding,
     tension = tension,
     fontsize = fontsize,
-    maxsize = maxsize
+    nodesize = nodesize
   )
   # create widget
   htmlwidgets::createWidget(
