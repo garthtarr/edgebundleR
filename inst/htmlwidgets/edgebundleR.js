@@ -86,6 +86,7 @@ HTMLWidgets.widget({
         .attr("class", "node")
         .attr("id", function(d) { return "node-" + d.key; })
         .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
+        .style("font-size",xin.fontsize);
 
     nodes_g.append("text")
       .attr("dx", function(d) { return d.x < 180 ? 8 : -8; })
@@ -190,13 +191,6 @@ HTMLWidgets.widget({
     function dot(a, b) {
       return a[0] * b[0] + a[1] * b[1];
     }
-
-    var css = document.createElement("style");
-    css.type = "text/css";
-    var pre = ".node { font: 300 ";
-    var post = "px 'Helvetica Neue', Helvetica, Arial, sans-serif;}";
-    css.innerHTML = pre + xin.fontsize + post;
-    document.head.appendChild(css);
 
 
   },
