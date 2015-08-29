@@ -77,7 +77,7 @@ HTMLWidgets.widget({
                 .attr("d", function(d, i) { return line(splines[i]); })
                 .style("stroke", function(d){
                   if(d.source.color) return d.source.color;
-                  return null;
+                  return 'steelblue';
                 });
 
     var nodes_g = svg.selectAll("g.node")
@@ -95,22 +95,29 @@ HTMLWidgets.widget({
       .attr("transform", function(d) { return d.x < 180 ? null : "rotate(180)"; })
       .style("fill", function(d){
         if(d.color) return d.color;
-        return null;
       })
       .text(function(d) { return d.key; })
       .on("mouseover", mouseover)
       .on("mouseout", mouseout);
+
+    // set up a scale to size nodes based on xin.nodesize
+    var nodesizer = d3.scale.linear()
+      .domain(d3.extent(nodes.map(function(d){return d.size})))
+      .range(xin.nodesize);
 
     nodes_g.append("circle")
     	.attr("cx", 0)
     	.attr("cy", 0)
     	.attr("fill", function(d,i){
         if(d.color) return d.color;
-        return null;
+        return 'steelblue';
     	})
     	.attr("opacity", 1.0)
     	.attr("r", function(d,i){
-    	  var size = (d.size) ? d.size : 10;
+    	  var size = d3.max(nodesizer.range());
+    	  if(d.size){
+    	    size = nodesizer(d.size)
+  	    }
     	  return Math.round(Math.pow(size, 1/2));
     	});
 
