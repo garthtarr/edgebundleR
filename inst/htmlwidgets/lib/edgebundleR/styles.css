@@ -1,3 +1,7 @@
+.edgebundleR .node {
+  fill: steelblue;
+  font-family:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 .edgebundleR .node:hover {
   fill: steelblue;
   font-family:  "Helvetica Neue", Helvetica, Arial, sans-serif;
