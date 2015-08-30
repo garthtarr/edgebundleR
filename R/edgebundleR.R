@@ -19,6 +19,8 @@
 #'   to scale the node circle size.  If a size is not provided for each
 #'   node, then the node size will be the max node size provided in
 #'   this argument.  Default: c(5,20).
+#' @param directed whether or not the graph is directed. Does not work yet.
+#'   Need to think about how to implement this cleanly.
 #'
 #' @import htmlwidgets
 #' @import rjson
@@ -33,17 +35,20 @@
 #'
 #' @export
 edgebundle <- function(x, tension=0.5, cutoff=0.1, width = NULL,
-                       fontsize = 14, padding=100, nodesize = c(5,20)) {
+                       fontsize = 14, padding=100, nodesize = c(5,20),
+                       directed = FALSE) {
   if((typeof(x)=="character")){
     json_data <- rjson::fromJSON(file = x)
     json_real = rjson::toJSON(json_data)
   } else if (class(x)=="igraph"){
     json_real = edgeToJSON_igraph(x)
+    directed = is.directed(ws_graph)
   } else {
     if(!isSymmetric(x)){
       warning("x needs to be a symmetric matrix (e.g. a correlation matrix).")
       return()
     }
+    directed = FALSE
     corX = x
     adj = corX>cutoff
     edges = adjToEdge(adj)
@@ -58,7 +63,8 @@ edgebundle <- function(x, tension=0.5, cutoff=0.1, width = NULL,
     padding=padding,
     tension = tension,
     fontsize = fontsize,
-    nodesize = nodesize
+    nodesize = nodesize,
+    directed = directed
   )
   # create widget
   htmlwidgets::createWidget(

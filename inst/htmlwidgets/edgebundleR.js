@@ -51,6 +51,7 @@ HTMLWidgets.widget({
                 .style("right", "0")
                 .style("backface-visibility", "hidden");
 
+
     var svg = div.append("svg")
                 .attr("width", w + "px")
                 .attr("height", w + "px")
@@ -77,7 +78,7 @@ HTMLWidgets.widget({
                 .attr("d", function(d, i) { return line(splines[i]); })
                 .style("stroke", function(d){
                   if(d.source.color) return d.source.color;
-                  return 'steelblue';
+                  /*if(!xin.directed) return 'steelblue';*/
                 });
 
     var nodes_g = svg.selectAll("g.node")
