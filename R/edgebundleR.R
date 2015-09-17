@@ -42,7 +42,7 @@ edgebundle <- function(x, tension=0.5, cutoff=0.1, width = NULL,
     json_real = rjson::toJSON(json_data)
   } else if (class(x)=="igraph"){
     json_real = edgeToJSON_igraph(x)
-    directed = is.directed(ws_graph)
+    directed = is.directed(x)
   } else {
     if(!isSymmetric(x)){
       warning("x needs to be a symmetric matrix (e.g. a correlation matrix).")
