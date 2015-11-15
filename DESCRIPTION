@@ -1,9 +1,12 @@
 Package: edgebundleR
 Title: Circle Plot with Bundled Edges
-Version: 0.1.1
-Date: 2015-11-15
+Version: 0.1.2
+Date: 2015-11-16
 Authors@R: c(person("Garth", "Tarr", email = "garth.tarr@gmail.com", role = c("aut", "cre")), person("Ellis", "Patrick", email = "ellis.patrick@sydney.edu.au", role = "aut"),person("Kent", "Russell", role = c("ctb"), email = "kent.russell@timelyportfolio.com"))
-Description: Generates interactive circle plots with the nodes around the circumfrence and linkages between the connected nodes using hierarchical edge bundling via the D3 JavaScript library. See <http://d3js.org/> for more information on D3.
+Description: Generates interactive circle plots with the nodes around the
+    circumference and linkages between the connected nodes using hierarchical
+    edge bundling via the D3 JavaScript library. See <http://d3js.org/> for more
+    information on D3.
 License: GPL (>= 3)
 LazyData: true
 Depends:
