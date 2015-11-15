@@ -14,8 +14,6 @@ You can install `edgebundleR` from Github using the `devtools` package as follow
 devtools::install_github("garthtarr/edgebundleR")
 ```
 
-Once package development has stabilised, we will upload it to CRAN.
-
 
 ## Usage
 
