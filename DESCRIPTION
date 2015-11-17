@@ -1,6 +1,6 @@
 Package: edgebundleR
 Title: Circle Plot with Bundled Edges
-Version: 0.1.2
+Version: 0.1.3
 Date: 2015-11-16
 Authors@R: c(person("Garth", "Tarr", email = "garth.tarr@gmail.com", role = c("aut", "cre")), person("Ellis", "Patrick", email = "ellis.patrick@sydney.edu.au", role = "aut"),person("Kent", "Russell", role = c("ctb"), email = "kent.russell@timelyportfolio.com"))
 Description: Generates interactive circle plots with the nodes around the
