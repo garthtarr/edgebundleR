@@ -1,6 +1,6 @@
 # Circle plot with bundled edges
 
-[![Travis-CI Build Status](https://travis-ci.org/garthtarr/edgebundleR.svg?branch=master)](https://travis-ci.org/garthtarr/edgebundleR)
+[![Travis-CI Build Status](https://travis-ci.org/garthtarr/edgebundleR.svg?branch=master)](https://travis-ci.org/garthtarr/edgebundleR) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/googleVis)](http://cran.r-project.org/package=googleVis/)
 
 This package allows R users to easily create a hierarchical edge bundle plot.  The underlying D3 code was adapted from  Mike Bostock's examples (see [here](http://bl.ocks.org/mbostock/7607999) or [here](https://mbostock.github.io/d3/talk/20111116/bundle.html)) and the package is based on the [htmlwidgets](https://github.com/ramnathv/htmlwidgets) framework.
 
