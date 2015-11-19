@@ -11,7 +11,14 @@ Many thanks to [timelyportfolio](https://github.com/timelyportfolio) for some ma
 You can install `edgebundleR` from Github using the `devtools` package as follows:
 
 ```s
+# install.packages("devtools")
 devtools::install_github("garthtarr/edgebundleR")
+```
+
+Or you can get it on CRAN:
+
+```s
+install.packages("edgebundleR")
 ```
 
 
