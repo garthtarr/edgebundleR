@@ -49,7 +49,8 @@ edgebundle(ws_graph,tension = 0.1,fontsize = 18,padding=40)
 ```
 
 Here's a more complicated example adapted from [this](http://stackoverflow.com/questions/30708674/network-chord-diagram-woes-in-r/32260962#32260962) stackoverflow question and answer.
-```
+
+```s
 library(igraph)
 library(data.table)
 d <- structure(list(ID = c("KP1009", "GP3040", "KP1757", "GP2243",
