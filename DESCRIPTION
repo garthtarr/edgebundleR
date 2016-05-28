@@ -1,7 +1,7 @@
 Package: edgebundleR
 Title: Circle Plot with Bundled Edges
-Version: 0.1.4
-Date: 2016-03-18
+Version: 0.1.5
+Date: 2016-05-28
 Authors@R: c(
     person("Mike", "Bostock", role = c("aut", "cph"), comment = "d3.js library and much of edgebundle code in htmlwidgets/lib, http://d3js.org"),
     person("Ellis", "Patrick", email = "ellis.patrick@sydney.edu.au", role = "aut"),
