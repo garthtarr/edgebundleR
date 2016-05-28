@@ -99,7 +99,9 @@ HTMLWidgets.widget({
       })
       .text(function(d) { return d.key; })
       .on("mouseover", mouseover)
-      .on("mouseout", mouseout);
+      .on("mouseout", mouseout)
+              .append("svg:title")
+        .text(function(d) { return d.name; });
 
     // set up a scale to size nodes based on xin.nodesize
     var nodesizer = d3.scale.linear()
