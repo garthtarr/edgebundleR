@@ -108,6 +108,23 @@ colnames(X) = paste(rep(c("A.A","B.B","C.C"),each=5),1:5,sep="")
 edgebundle(cor(X),cutoff=0.2,tension=0.8,fontsize = 14)
 ```
 
+A bit more intricate with multiple levels of grouping:
+
+```s
+devtools::install_github("garthtarr/edgebundleR")
+require(edgebundleR)
+require(MASS)
+sig = kronecker(diag(12),matrix(2,5,5)) + 3*diag(60)
+X = MASS::mvrnorm(n=100,mu=rep(0,60),Sigma = sig)
+colnames(X) = paste(rep(c("Sample1.Left.A.A","Sample1.Left.B.B","Sample1.Left.C.C",
+                          "Sample1.Right.A.A","Sample1.Right.B.B","Sample1.Right.C.C",
+                          "Sample2.Left.A.A","Sample2.Left.B.B","Sample2.Left.C.C",
+                          "Sample2.Right.A.A","Sample2.Right.B.B","Sample2.Right.C.C"),
+                        each=5),1:5,sep="")
+Y = X[,sample(dim(X)[2])]
+edgebundle(cor(Y),cutoff=0.2,tension=0.8,fontsize = 14)
+```
+
 Alternatively, you could do some regularisation and plot the results of that:
 ```s
 require(huge)
