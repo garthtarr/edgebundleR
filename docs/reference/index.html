@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -58,6 +58,9 @@
   </a>
 </li>
 <li>
+  <a href="../articles/edgebundleR.html">Get Started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -97,52 +100,16 @@
       <tbody>
         <tr>
           <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-            <p class="section-desc"></p>
+            <h2 id="section-core-functions" class="hasAnchor"><a href="#section-core-functions" class="anchor"></a>Core functions</h2>
+            <p class="section-desc"><p>Functions for generating and saving edgebundles.</p></p>
           </th>
         </tr>
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="adjToEdge.html">adjToEdge</a></code> </p>
-          </td>
-          <td><p>Helper function to convert adjacency matrix to edges</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
             <p><code><a href="edgebundle.html">edgebundle</a></code> </p>
           </td>
           <td><p>Circle plot with bundled edges</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="edgebundleOutput.html">edgebundleOutput</a></code> </p>
-          </td>
-          <td><p>Widget output function for use in Shiny</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="edgeToJSON_igraph.html">edgeToJSON_igraph</a></code> </p>
-          </td>
-          <td><p>Helper function to convert an igraph to JSON</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="edgeToJSON_matrix.html">edgeToJSON_matrix</a></code> </p>
-          </td>
-          <td><p>Helper function to convert edges to JSON</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="flare-imports.json.html">flare-imports.json</a></code> </p>
-          </td>
-          <td><p>Flare software class hierarchy</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="renderEdgebundle.html">renderEdgebundle</a></code> </p>
-          </td>
-          <td><p>Widget render function for use in Shiny</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -156,6 +123,52 @@
           </td>
           <td><p>Shiny interface to the edgebundle function</p></td>
         </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-shiny-functions" class="hasAnchor"><a href="#section-shiny-functions" class="anchor"></a>Shiny functions</h2>
+            <p class="section-desc"><p>Functions for using edgebundles in Shiny apps.</p></p>
+          </th>
+        </tr>
+        <tr>
+          <!--  -->
+          <td>
+            <p><code><a href="edgebundleOutput.html">edgebundleOutput</a></code> </p>
+          </td>
+          <td><p>Widget output function for use in Shiny</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="renderEdgebundle.html">renderEdgebundle</a></code> </p>
+          </td>
+          <td><p>Widget render function for use in Shiny</p></td>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-helper-functions" class="hasAnchor"><a href="#section-helper-functions" class="anchor"></a>Helper functions</h2>
+            <p class="section-desc"></p>
+          </th>
+        </tr>
+        <tr>
+          <!--  -->
+          <td>
+            <p><code><a href="adjToEdge.html">adjToEdge</a></code> </p>
+          </td>
+          <td><p>Helper function to convert adjacency matrix to edges</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="edgeToJSON_igraph.html">edgeToJSON_igraph</a></code> </p>
+          </td>
+          <td><p>Helper function to convert an igraph to JSON</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="edgeToJSON_matrix.html">edgeToJSON_matrix</a></code> </p>
+          </td>
+          <td><p>Helper function to convert edges to JSON</p></td>
+        </tr>
       </tbody>
       </table>
     </div>
@@ -164,7 +177,9 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#section-core-functions">Core functions</a></li>
+      <li><a href="#section-shiny-functions">Shiny functions</a></li>
+      <li><a href="#section-helper-functions">Helper functions</a></li>
     </ul>
   </div>
 </div>

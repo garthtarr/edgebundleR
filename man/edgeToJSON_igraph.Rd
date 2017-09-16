@@ -12,4 +12,3 @@ edgeToJSON_igraph(graph)
 \description{
 Helper function to convert an igraph to JSON
 }
-

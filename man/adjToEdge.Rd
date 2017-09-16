@@ -12,4 +12,3 @@ adjToEdge(adj)
 \description{
 Helper function to convert adjacency matrix to edges
 }
-

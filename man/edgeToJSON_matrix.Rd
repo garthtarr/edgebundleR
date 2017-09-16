@@ -12,4 +12,3 @@ edgeToJSON_matrix(edges)
 \description{
 Helper function to convert edges to JSON
 }
-

@@ -1,0 +1,28 @@
+template:
+  params:
+    bootswatch: lumen
+
+reference:
+  - title: "Core functions"
+    desc: >
+      Functions for generating and saving edgebundles.
+    contents:
+      - edgebundle
+      - saveEdgebundle
+      - shinyedge
+  - title: "Shiny functions"
+    desc: >
+      Functions for using edgebundles in Shiny apps.
+    contents:
+      - edgebundleOutput
+      - renderEdgebundle
+  - title: "Helper functions"
+    contents:
+      - adjToEdge
+      - edgeToJSON_igraph
+      - edgeToJSON_matrix
+  - exclude:
+    contents:
+      - flare-imports.json
+
+

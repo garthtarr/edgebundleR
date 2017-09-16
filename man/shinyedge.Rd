@@ -13,4 +13,3 @@ square symmetric matrix (e.g. correlation matrix) or an igraph object.}
 \description{
 Opens a shiny GUI to facilitate interaction with the edgebundle function
 }
-

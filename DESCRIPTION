@@ -23,7 +23,9 @@ Imports:
     shiny
 Suggests:
     knitr,
-    huge
+    huge,
+    rmarkdown
 URL: https://github.com/garthtarr/edgebundleR
 Roxygen: list(wrap = FALSE)
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
+VignetteBuilder: knitr
