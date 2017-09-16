@@ -41,7 +41,7 @@ edgebundle <- function(x, tension=0.5, cutoff=0.1, width = NULL,
     json_data <- rjson::fromJSON(file = x)
     json_real = rjson::toJSON(json_data)
   } else if (class(x)=="igraph"){
-    json_real = edgeToJSON_igraph(x)
+    json_real = edgeToJSON_igraph(x)#d3r::d3_igraph(x)#edgeToJSON_igraph(x)
     directed = is.directed(x)
   } else {
     if(!isSymmetric(x)){

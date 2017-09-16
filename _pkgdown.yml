@@ -1,6 +1,7 @@
 template:
   params:
     bootswatch: lumen
+    toc_depth: 3
 
 reference:
   - title: "Core functions"
@@ -25,4 +26,18 @@ reference:
     contents:
       - flare-imports.json
 
+
+navbar:
+  title: "edgebundleR"
+  type: default
+  left:
+    - icon: fa-home fa-lg
+      href: index.html
+    - text: "Get Started"
+      href: articles/edgebundleR.html
+    - text: "Reference"
+      href: reference/index.html
+  right:
+    - icon: fa-github fa-lg
+      href: https://github.com/garthtarr/edgebundleR
 

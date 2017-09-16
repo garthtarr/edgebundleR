@@ -22,9 +22,9 @@ The main function in the edgebundleR package is `edgebundle()`.  It takes in a v
 
 The result of the `edgebundle()` function is a webpage that is rendered in the RStudio Viewer pane by default, but also may be exported to a self contained webpage, embedded in an Rmarkdown document or used in a Shiny web application.
 
-### Input options
+## Input options
 
-#### igraph object
+### igraph object
 
 Given an igraph object as the input, the function will extract the linkages and plot them.  For example,
 
@@ -84,7 +84,7 @@ V(g)$size = degree(g)*5
 edgebundle( g )
 ```
 
-#### Symmetric matrix
+### Symmetric matrix
 
 ```s
 require(MASS)
@@ -132,7 +132,7 @@ edgebundle(adj.mat,tension=0.8,fontsize = 10)
 ```
 
 
-#### JSON file
+### JSON file
 
 If you already have an appropriately formatted JSON file with `name` and `imports` as the keys linking various nodes, you can load it directly as follows:
 
@@ -157,7 +157,7 @@ The important elements are the `name` and `imports` keys.  In the current implem
 
 ## Output options
 
-#### Within RStudio
+### Within RStudio
 
 When running (recent versions of) RStudio, the default behaviour is for the plot to render in the Viewer pane.  You should not specify the width and height parameters, as these will override the dynamic resizing behaviour.
 
@@ -168,7 +168,7 @@ ws_graph = watts.strogatz.game(1, 50, 4, 0.05)
 edgebundle(ws_graph,tension = 0.1,fontsize = 20)
 ```
 
-#### Stand alone web page
+### Stand alone web page
 
 You can open the graph in a web browser from RStudio using the "Show in new window" icon.  If you would like to save the webpage to share with others, the best option is to use the `saveEdgebundle` function:
 
@@ -179,11 +179,11 @@ saveEdgebundle(g,file = "ws_graph.html")
 
 This will create a fully self contained html file that renders reliably in most browsers.
 
-#### Rmarkdown document
+### Rmarkdown document
 
 Simply set the code chunk argument `results='asis'`.
 
-#### Shiny application
+### Shiny application
 
 Using the `shinyedge` function, you can interactively adjust the font size, height/width and tension then export the graph to a self contained html file.  The input to the `shinyedge` function is a JSON file, igraph object or symmetric matrix (the same as the `edgebundle` function).
 

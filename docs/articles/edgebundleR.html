@@ -29,7 +29,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -74,12 +74,13 @@
 <div class="sourceCode"><pre class="sourceCode s"><code class="sourceCode gnuassembler">library(edgebundleR)</code></pre></div>
 <p>The main function in the edgebundleR package is <code><a href="../reference/edgebundle.html">edgebundle()</a></code>. It takes in a variety of inputs: - an igraph object - a symmetric matrix, e.g. a correlation matrix or (regularised) precision matrix - a JSON file structured with <code>name</code> and <code>imports</code> as the keys</p>
 <p>The result of the <code><a href="../reference/edgebundle.html">edgebundle()</a></code> function is a webpage that is rendered in the RStudio Viewer pane by default, but also may be exported to a self contained webpage, embedded in an Rmarkdown document or used in a Shiny web application.</p>
-<div id="input-options" class="section level3">
+</div>
+<div id="input-options" class="section level2">
+<h2 class="hasAnchor">
+<a href="#input-options" class="anchor"></a>Input options</h2>
+<div id="igraph-object" class="section level3">
 <h3 class="hasAnchor">
-<a href="#input-options" class="anchor"></a>Input options</h3>
-<div id="igraph-object" class="section level4">
-<h4 class="hasAnchor">
-<a href="#igraph-object" class="anchor"></a>igraph object</h4>
+<a href="#igraph-object" class="anchor"></a>igraph object</h3>
 <p>Given an igraph object as the input, the function will extract the linkages and plot them. For example,</p>
 <div class="sourceCode"><pre class="sourceCode s"><code class="sourceCode gnuassembler">require(igraph)
 ws_graph &lt;- watts.strogatz.game(<span class="dv">1</span>, <span class="dv">50</span>, <span class="dv">4</span>, <span class="dv">0</span>.05)
@@ -131,9 +132,9 @@ V(g)$size = degree(g)*<span class="dv">5</span>
 
 edgebundle( g )</code></pre></div>
 </div>
-<div id="symmetric-matrix" class="section level4">
-<h4 class="hasAnchor">
-<a href="#symmetric-matrix" class="anchor"></a>Symmetric matrix</h4>
+<div id="symmetric-matrix" class="section level3">
+<h3 class="hasAnchor">
+<a href="#symmetric-matrix" class="anchor"></a>Symmetric matrix</h3>
 <div class="sourceCode"><pre class="sourceCode s"><code class="sourceCode gnuassembler">require(MASS)
 sig = kronecker(diag(<span class="dv">3</span>),matrix(<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">5</span>)) + <span class="dv">3</span>*diag(<span class="dv">15</span>)
 X = <span class="kw">MASS::</span>mvrnorm(n=<span class="dv">100</span>,mu=rep(<span class="dv">0</span>,<span class="dv">15</span>),Sigma = sig)
@@ -170,9 +171,9 @@ adj.mat = adj.mat[rowSums(adj.mat)&gt;<span class="dv">0</span>,colSums(adj.mat)
 <span class="co"># plot the result</span>
 edgebundle(adj.mat,tension=<span class="dv">0</span>.8,fontsize = <span class="dv">10</span>)</code></pre></div>
 </div>
-<div id="json-file" class="section level4">
-<h4 class="hasAnchor">
-<a href="#json-file" class="anchor"></a>JSON file</h4>
+<div id="json-file" class="section level3">
+<h3 class="hasAnchor">
+<a href="#json-file" class="anchor"></a>JSON file</h3>
 <p>If you already have an appropriately formatted JSON file with <code>name</code> and <code>imports</code> as the keys linking various nodes, you can load it directly as follows:</p>
 <div class="sourceCode"><pre class="sourceCode s"><code class="sourceCode gnuassembler">filepath = system.file(<span class="st">"sampleData"</span>, <span class="st">"flare-imports.json"</span>, package = <span class="st">"edgebundleR"</span>)
 edgebundle(filepath,width=<span class="dv">800</span>,fontsize=<span class="dv">8</span>,tension=<span class="dv">0</span>.95)</code></pre></div>
@@ -185,34 +186,33 @@ edgebundle(filepath,width=<span class="dv">800</span>,fontsize=<span class="dv">
 <p>The important elements are the <code>name</code> and <code>imports</code> keys. In the current implementation, <code>size</code> is ignored. Note the dots in the node names, these are used to do the clustering. For example these first three nodes would all appear grouped together in the graph as they all start with <code>flare.analytics.cluster</code>. You can have multiple levels of clustering (hierarchical clustering) using different depths in the naming convention. Any text after the final dot will be rendered as the node label in the graph.</p>
 </div>
 </div>
-</div>
 <div id="output-options" class="section level2">
 <h2 class="hasAnchor">
 <a href="#output-options" class="anchor"></a>Output options</h2>
-<div id="within-rstudio" class="section level4">
-<h4 class="hasAnchor">
-<a href="#within-rstudio" class="anchor"></a>Within RStudio</h4>
+<div id="within-rstudio" class="section level3">
+<h3 class="hasAnchor">
+<a href="#within-rstudio" class="anchor"></a>Within RStudio</h3>
 <p>When running (recent versions of) RStudio, the default behaviour is for the plot to render in the Viewer pane. You should not specify the width and height parameters, as these will override the dynamic resizing behaviour.</p>
 <p>For example, the following code would generate a plot that dynamically resizes to fit in the Viewer pane:</p>
 <div class="sourceCode"><pre class="sourceCode s"><code class="sourceCode gnuassembler">ws_graph = watts.strogatz.game(<span class="dv">1</span>, <span class="dv">50</span>, <span class="dv">4</span>, <span class="dv">0</span>.05)
 edgebundle(ws_graph,tension = <span class="dv">0</span>.1,fontsize = <span class="dv">20</span>)</code></pre></div>
 </div>
-<div id="stand-alone-web-page" class="section level4">
-<h4 class="hasAnchor">
-<a href="#stand-alone-web-page" class="anchor"></a>Stand alone web page</h4>
+<div id="stand-alone-web-page" class="section level3">
+<h3 class="hasAnchor">
+<a href="#stand-alone-web-page" class="anchor"></a>Stand alone web page</h3>
 <p>You can open the graph in a web browser from RStudio using the “Show in new window” icon. If you would like to save the webpage to share with others, the best option is to use the <code>saveEdgebundle</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode s"><code class="sourceCode gnuassembler">g = edgebundle(ws_graph,tension = <span class="dv">0</span>.1,fontsize = <span class="dv">20</span>,width=<span class="dv">600</span>,height=<span class="dv">600</span>)
 saveEdgebundle(g,file = <span class="st">"ws_graph.html"</span>)</code></pre></div>
 <p>This will create a fully self contained html file that renders reliably in most browsers.</p>
 </div>
-<div id="rmarkdown-document" class="section level4">
-<h4 class="hasAnchor">
-<a href="#rmarkdown-document" class="anchor"></a>Rmarkdown document</h4>
+<div id="rmarkdown-document" class="section level3">
+<h3 class="hasAnchor">
+<a href="#rmarkdown-document" class="anchor"></a>Rmarkdown document</h3>
 <p>Simply set the code chunk argument <code>results='asis'</code>.</p>
 </div>
-<div id="shiny-application" class="section level4">
-<h4 class="hasAnchor">
-<a href="#shiny-application" class="anchor"></a>Shiny application</h4>
+<div id="shiny-application" class="section level3">
+<h3 class="hasAnchor">
+<a href="#shiny-application" class="anchor"></a>Shiny application</h3>
 <p>Using the <code>shinyedge</code> function, you can interactively adjust the font size, height/width and tension then export the graph to a self contained html file. The input to the <code>shinyedge</code> function is a JSON file, igraph object or symmetric matrix (the same as the <code>edgebundle</code> function).</p>
 <div class="sourceCode"><pre class="sourceCode s"><code class="sourceCode gnuassembler">g1 = watts.strogatz.game(<span class="dv">1</span>, <span class="dv">100</span>, <span class="dv">4</span>, <span class="dv">0</span>.05)
 shinyedge(g1)</code></pre></div>
@@ -233,6 +233,7 @@ shinyedge(g1)</code></pre></div>
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#usage">Usage</a></li>
+      <li><a href="#input-options">Input options</a></li>
       <li><a href="#output-options">Output options</a></li>
       <li><a href="#saving-and-sharing">Saving and sharing</a></li>
       </ul>
