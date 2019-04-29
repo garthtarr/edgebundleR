@@ -6,6 +6,8 @@ This package allows R users to easily create a hierarchical edge bundle plot.  T
 
 Many thanks to [timelyportfolio](https://github.com/timelyportfolio) for some major improvements.
 
+![example graph](edgebundleR-example.png)
+
 ## Installation
 
 You can install `edgebundleR` from Github using the `devtools` package as follows:
