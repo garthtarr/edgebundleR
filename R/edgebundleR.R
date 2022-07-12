@@ -36,7 +36,11 @@
 #' @export
 edgebundle <- function(x, tension=0.5, cutoff=0.1, width = NULL,
                        fontsize = 14, padding=100, nodesize = c(5,20),
-                       directed = FALSE) {
+                       directed = FALSE,
+                       selectNodeAction = NULL,
+                       mouseoverAction = NULL,
+                       mouseoutAction = NULL,
+                       deselectNodeAction = NULL) {
   if((typeof(x)=="character")){
     json_data <- rjson::fromJSON(file = x)
     json_real = rjson::toJSON(json_data)
@@ -64,7 +68,11 @@ edgebundle <- function(x, tension=0.5, cutoff=0.1, width = NULL,
     tension = tension,
     fontsize = fontsize,
     nodesize = nodesize,
-    directed = directed
+    directed = directed,
+    selectNodeAction = selectNodeAction,
+    mouseoverAction = mouseoverAction,
+    mouseoutAction = mouseoutAction,
+    deselectNodeAction = deselectNodeAction
   )
   # create widget
   htmlwidgets::createWidget(
