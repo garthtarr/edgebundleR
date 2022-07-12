@@ -8,7 +8,7 @@
 }
 .edgebundleR .link {
   stroke: steelblue;
-  stroke-opacity: .3;
+  stroke-opacity: .25;
   fill: none;
   pointer-events: none;
 }
@@ -18,7 +18,7 @@
 }
 .edgebundleR .link.source {
   stroke-opacity: 1;
-  stroke-width: 2px;
+  stroke-width: 3px;
   stroke: #d62728;
 }
 .edgebundleR .node.target {
@@ -31,7 +31,22 @@
 }
 .edgebundleR .link.target {
   stroke-opacity: 1;
-  stroke-width: 2px;
+  stroke-width: 3px;
   stroke: #d62728; /*#2ca02c;*/
 }
 
+/*----------------------------------------*/
+.edgebundleR .link.clicked {
+  stroke-opacity: 1;
+  stroke-width: 4px;
+  stroke: #d62728; /*#2ca02c;*/
+}
+.edgebundleR .node:click {
+  font-weight: 800;
+  fill: steelblue;
+}
+.edgebundleR .selectedText {
+  font-weight: 800;
+  font-size: 120%;
+}
+/*----------------------------------------*/

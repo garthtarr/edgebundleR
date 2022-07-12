@@ -57,12 +57,13 @@ HTMLWidgets.widget({
                 .attr("height", w + "px")
                 .append("g")
                 .attr("id","actualplot")
-                .attr("transform", "translate(" + rx + "," + ry + ")");
+                .attr("transform", "translate(" + rx + "," + ry + ")")
+                .on("mousedown", clicking_SVG_background);
 
     svg.append("path")
       .attr("class", "arc")
       .attr("d", d3.svg.arc().outerRadius(ry - 120).innerRadius(0).padRadius(0).startAngle(0).endAngle(2 * Math.PI))
-      .on("mousedown", mousedown);
+      .on("mousedown", mousedown)
 
     classes = JSON.parse(xin.json_real);
     nodes = cluster.nodes(packages.root(classes));
@@ -89,6 +90,7 @@ HTMLWidgets.widget({
         .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
         .style("font-size",xin.fontsize);
 
+
     nodes_g.append("text")
       .attr("dx", function(d) { return d.x < 180 ? 8 : -8; })
       .attr("dy", ".31em")
@@ -100,8 +102,9 @@ HTMLWidgets.widget({
       .text(function(d) { return d.key; })
       .on("mouseover", mouseover)
       .on("mouseout", mouseout)
-              .append("svg:title")
-        .text(function(d) { return d.name; });
+      .on("click", click)
+      .append("svg:title")
+      .text(function(d) { return d.name; });
 
     // set up a scale to size nodes based on xin.nodesize
     var nodesizer = d3.scale.linear()
@@ -109,20 +112,20 @@ HTMLWidgets.widget({
       .range(xin.nodesize);
 
     nodes_g.append("circle")
-    	.attr("cx", 0)
-    	.attr("cy", 0)
-    	.attr("fill", function(d,i){
+    .attr("cx", 0)
+    .attr("cy", 0)
+    .attr("fill", function(d,i){
         if(d.color) return d.color;
         return 'steelblue';
-    	})
-    	.attr("opacity", 1.0)
-    	.attr("r", function(d,i){
-    	  var size = d3.max(nodesizer.range());
-    	  if(d.size){
-    	    size = nodesizer(d.size)
-  	    }
-    	  return Math.round(Math.pow(size, 1/2));
-    	});
+    })
+    .attr("opacity", 1.0)
+    .attr("r", function(d,i){
+     var size = d3.max(nodesizer.range());
+     if(d.size){
+       size = nodesizer(d.size)
+     }
+     return Math.round(Math.pow(size, 1/2));
+    });
 
     d3.select(el)
       .on("mousemove", mousemove)
@@ -176,6 +179,9 @@ HTMLWidgets.widget({
       svg.selectAll("path.link.source-" + d.key)
         .classed("source", true)
         .each(updateNodes("target", true));
+
+      return eval(xin.mouseoverAction)
+      // "Shiny.onInputChange('hover_node_id', d.name);",
     }
 
     function mouseout(d) {
@@ -185,7 +191,74 @@ HTMLWidgets.widget({
       svg.selectAll("path.link.target-" + d.key)
         .classed("target", false)
         .each(updateNodes("source", false));
+
+      return eval(xin.mouseoutAction)
+      //Shiny.onInputChange("hover_node_id", 'Not_Currently_Hovering');
     }
+
+
+    //------------------------------------------------------------------------------
+    function clicking_SVG_background(){
+      // Reset everything when you click off the text or circles
+      if (d3.event.srcElement.tagName != "text" & d3.event.srcElement.tagName != "circle"){
+
+        // If the clicked node is already selected then unselect it.
+        svg.selectAll(".node").classed("selected", false);
+        svg.selectAll("text").classed("selectedText", false);
+
+        // Unbold the lines of the thing selected
+        svg.selectAll("path").classed("clicked", false)
+
+        // Return message from R
+        return eval(xin.deselectNodeAction);
+      }
+    }
+
+    function click(d) {
+      // If nothing is selected then select the clicked node.
+      if(!d3.select(this).classed("selected") ){
+        d3.select(this).classed("selected", true)
+
+        svg.selectAll("path.link")
+          .classed("clicked", false)
+          .each(updateNodes("source", false));
+        svg.selectAll("path.link")
+          .classed("clicked", false)
+          .each(updateNodes("target", false));
+        svg.selectAll("text").classed("selectedText", false);
+
+        svg.selectAll("path.link.target-" + d.key)
+          .classed("clicked", true)
+          .each(updateNodes("source", true));
+        svg.selectAll("path.link.source-" + d.key)
+          .classed("clicked", true)
+          .each(updateNodes("target", true));
+        d3.select(this).classed("selectedText", true);
+
+        // Return message from R
+        return eval(xin.selectNodeAction);
+
+      } else {
+
+        // Unbold the lines of the thing selected
+        svg.selectAll("path.link.target-" + d.key)
+          .classed("clicked", false)
+          .each(updateNodes("source", false));
+        svg.selectAll("path.link.source-" + d.key)
+          .classed("clicked", false)
+          .each(updateNodes("target", false));
+        d3.select(this).classed("selectedText", false);
+
+        // If the clicked node is already selected then unselect it.
+        d3.select(this).classed("selected", false);
+
+        // Return message from R
+        return eval(xin.deselectNodeAction);
+      }
+    }
+
+    //------------------------------------------------------------------------------
+
 
     function updateNodes(name, value) {
       return function(d) {
