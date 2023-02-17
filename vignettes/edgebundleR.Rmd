@@ -247,7 +247,8 @@ server <- function(input, output) {
                 selectNodeAction = "Shiny.onInputChange('select_node_id', d.key);",
                 deselectNodeAction =  "Shiny.onInputChange('select_node_id', 'Node_deselected');",
                 mouseoverAction = "Shiny.onInputChange('hover_node_id', d.name);",
-                mouseoutAction = "Shiny.onInputChange('hover_node_id', 'Not_Currently_Hovering');")
+                mouseoutAction = "Shiny.onInputChange('hover_node_id', 'Not_Currently_Hovering');",
+                dropdownVar = 'Loc'))
   })
   output$text1 <- renderPrint({ paste0('Selection: ', input$select_node_id) })
   output$text2 <- renderPrint({ paste0('mouseover: ', input$hover_node_id) })
@@ -262,6 +263,7 @@ ui <- fluidPage(
 
 shinyApp(ui = ui, server = server)
 ```
+Please note that the `dropdownVar` functionality, which enables the use of a drop down menu to highlight groups of variables, is currently only available for `igraph` objects.
 
 ## Saving and sharing
 

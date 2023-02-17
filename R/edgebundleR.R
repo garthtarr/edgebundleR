@@ -21,6 +21,16 @@
 #'   this argument.  Default: c(5,20).
 #' @param directed whether or not the graph is directed. Does not work yet.
 #'   Need to think about how to implement this cleanly.
+#' @param selectNodeAction enables users to write own Javascript and evaluate it when
+#' node is selected. Inspired from visNetwork::visEvents(selectNode).
+#' @param mouseoverAction enables users to write own Javascript and evaluate it when
+#' node is hovered over by mouse. Inspired from visNetwork::visEvents(hoverNode).
+#' @param mouseoutAction enables users to write own Javascript and evaluate it when
+#' node is no longer being hovered over by mouse. Inspired from visNetwork::visEvents(blurNode).
+#' @param deselectNodeAction enables users to write own Javascript and evaluate it when
+#' node is deselected. Inspired from visNetwork::visEvents(deselectNode).
+#' @param dropdownVar variable for dropdown menu when using an igraph object. Dropdown
+#' menu selection highlights a group of nodes of interest.
 #'
 #' @import htmlwidgets
 #' @import rjson
@@ -40,11 +50,16 @@ edgebundle <- function(x, tension=0.5, cutoff=0.1, width = NULL,
                        selectNodeAction = NULL,
                        mouseoverAction = NULL,
                        mouseoutAction = NULL,
-                       deselectNodeAction = NULL) {
+                       deselectNodeAction = NULL,
+                       dropdownVar = NULL) {
   if((typeof(x)=="character")){
     json_data <- rjson::fromJSON(file = x)
     json_real = rjson::toJSON(json_data)
+    dropdownVar = NULL
   } else if (class(x)=="igraph"){
+    if (!is.null(dropdownVar)){
+      igraph::vertex_attr(graph = x, name = 'dropdownVar') <- igraph::get.vertex.attribute(x)[dropdownVar][[dropdownVar]]
+    }
     json_real = edgeToJSON_igraph(x)#d3r::d3_igraph(x)#edgeToJSON_igraph(x)
     directed = is.directed(x)
   } else {
@@ -57,6 +72,7 @@ edgebundle <- function(x, tension=0.5, cutoff=0.1, width = NULL,
     adj = corX>cutoff
     edges = adjToEdge(adj)
     json_real = edgeToJSON_matrix(edges)
+    dropdownVar = NULL
   }
   height=width
   # forward options using x
@@ -72,7 +88,8 @@ edgebundle <- function(x, tension=0.5, cutoff=0.1, width = NULL,
     selectNodeAction = selectNodeAction,
     mouseoverAction = mouseoverAction,
     mouseoutAction = mouseoutAction,
-    deselectNodeAction = deselectNodeAction
+    deselectNodeAction = deselectNodeAction,
+    dropdownVar = dropdownVar
   )
   # create widget
   htmlwidgets::createWidget(

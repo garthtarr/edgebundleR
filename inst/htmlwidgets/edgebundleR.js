@@ -38,6 +38,14 @@ HTMLWidgets.widget({
                   .radius(function(d) { return d.y; })
                   .angle(function(d) { return d.x / 180 * Math.PI; });
 
+    // Create dropdown. Place in top left.
+    if ( xin.dropdownVar ) {
+      var nodeSelect = d3.select(el).insert("div")
+    		.append("select")
+        .attr("id", "highlight_group_dropdown_menu")
+        .on("change", group_select_from_menu);
+    }
+
     //var div = d3.select("body").insert("div", "h2")
     var div = d3.select(el).insert("div")
                 //.style("top", "-80px")
@@ -50,7 +58,6 @@ HTMLWidgets.widget({
                 .style("left", "0")
                 .style("right", "0")
                 .style("backface-visibility", "hidden");
-
 
     var svg = div.append("svg")
                 .attr("width", w + "px")
@@ -127,6 +134,17 @@ HTMLWidgets.widget({
      return Math.round(Math.pow(size, 1/2));
     });
 
+    // Return the group labels for the menu
+    var options = nodeSelect.selectAll("option")
+      .data(d3.map(nodes, function(d){return d.dropdownVar}).keys());
+
+    // Return the group labels for the menu
+    options.enter()
+      .append("option")
+      .filter(function(d) { return (d !== "undefined") })
+      .attr("value", function(d) {return d;})
+      .text(function(d) {return d;});
+
     d3.select(el)
       .on("mousemove", mousemove)
       .on("mouseup", mouseup);
@@ -198,8 +216,38 @@ HTMLWidgets.widget({
 
 
     //------------------------------------------------------------------------------
+    function group_select_from_menu() {
+      // Function highlights the group of nodes that are selected from dropdown menu
+      svg.selectAll("path").classed("clicked", false);
+
+      // If we select the null value for the group (which is the default),
+      // don't highlight anything
+      if (d3.event.target.selectedIndex == 0){
+        svg.selectAll("g.node")
+          .attr("opacity", 1);
+
+      } else {
+        svg.selectAll("g.node")
+          .filter(function(d) {
+            return d.Loc != d3.event.target.value;
+          })
+          .attr("opacity", 0.25);
+
+        svg.selectAll("g.node")
+          .filter(function(d) {
+            return d.Loc == d3.event.target.value;
+          })
+          .attr("opacity", 1);
+      }
+    }
+
+
     function clicking_SVG_background(){
       // Reset everything when you click off the text or circles
+      // (needed because of dropdown menu)
+      svg.selectAll("g.node")
+        .attr("opacity", 1);
+
       if (d3.event.srcElement.tagName != "text" & d3.event.srcElement.tagName != "circle"){
 
         // If the clicked node is already selected then unselect it.
@@ -207,7 +255,11 @@ HTMLWidgets.widget({
         svg.selectAll("text").classed("selectedText", false);
 
         // Unbold the lines of the thing selected
-        svg.selectAll("path").classed("clicked", false)
+        svg.selectAll("path").classed("clicked", false);
+
+        // Set the dropdown menu back to 'blank' option
+        //document.getElementById("highlight_group_dropdown_menu").selectedIndex = -1;
+        d3.select('#highlight_group_dropdown_menu').node().selectedIndex = -1;
 
         // Return message from R
         return eval(xin.deselectNodeAction);
