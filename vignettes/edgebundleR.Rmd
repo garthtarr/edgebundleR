@@ -248,7 +248,7 @@ server <- function(input, output) {
                 deselectNodeAction =  "Shiny.onInputChange('select_node_id', 'Node_deselected');",
                 mouseoverAction = "Shiny.onInputChange('hover_node_id', d.name);",
                 mouseoutAction = "Shiny.onInputChange('hover_node_id', 'Not_Currently_Hovering');",
-                dropdownVar = 'Loc'))
+                dropdownVar = 'Loc')
   })
   output$text1 <- renderPrint({ paste0('Selection: ', input$select_node_id) })
   output$text2 <- renderPrint({ paste0('mouseover: ', input$hover_node_id) })
